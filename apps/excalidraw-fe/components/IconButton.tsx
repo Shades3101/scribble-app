@@ -11,14 +11,17 @@ export function IconButton({
 }) {
 
     return (
-        <div
-            className={`cursor-pointer rounded-xl border p-3 transition-colors ${activated
-                    ? "bg-blue-600 text-white border-blue-600 shadow-md"
-                    : "bg-white text-gray-700 border-gray-200 hover:bg-gray-50 dark:bg-zinc-800 dark:text-zinc-300 dark:border-zinc-700 dark:hover:bg-zinc-700 hover:shadow-sm"
-                }`}
+        <button
+            className={`cursor-pointer border-2 transition-all p-3 flex items-center justify-center
+                ${activated
+                    ? "bg-blue-500 text-white border-[#2c2c2c] shadow-[2px_2px_0px_0px_rgba(0,0,0,1)] translate-x-[1px] translate-y-[1px]"
+                    : "bg-white text-[#2c2c2c] border-[#2c2c2c] shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] hover:translate-x-[1px] hover:translate-y-[1px] hover:shadow-[3px_3px_0px_0px_rgba(0,0,0,1)]"
+                } active:translate-x-[2px] active:translate-y-[2px] active:shadow-none`}
             onClick={onClick}
         >
-            {icon}
-        </div>
+            <div className={`${activated ? "-rotate-6" : "rotate-0"} transition-transform`}>
+                {icon}
+            </div>
+        </button>
     );
 }

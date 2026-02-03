@@ -32,13 +32,13 @@ export default function Home() {
           <span className="text-2xl font-black tracking-tight uppercase italic">Scribble.</span>
         </div>
         
-        <div className="hidden md:flex items-center gap-8 font-bold text-sm uppercase tracking-widest">
-          <Link href="#features" className="hover:underline decoration-2 underline-offset-4">Features</Link>
-          <Link href="#showcase" className="hover:underline decoration-2 underline-offset-4">Showcase</Link>
-          <Link href="/workspace" className="px-6 py-2 border-2 border-[#2c2c2c] bg-white shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] hover:translate-x-[2px] hover:translate-y-[2px] hover:shadow-[2px_2px_0px_0px_rgba(0,0,0,1)] transition-all">
-            Launch Editor
-          </Link>
-        </div>
+          <div className="hidden md:flex items-center gap-8 font-bold text-sm uppercase tracking-widest">
+            <Link href="#features" className="hover:underline decoration-2 underline-offset-4">Features</Link>
+            <Link href="/signin" className="hover:underline decoration-2 underline-offset-4">Sign In</Link>
+            <Link href="/workspace" className="px-6 py-2 border-2 border-[#2c2c2c] bg-white shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] hover:translate-x-[2px] hover:translate-y-[2px] hover:shadow-[2px_2px_0px_0px_rgba(0,0,0,1)] transition-all">
+              Launch Editor
+            </Link>
+          </div>
       </nav>
 
       <main className="relative z-10">
