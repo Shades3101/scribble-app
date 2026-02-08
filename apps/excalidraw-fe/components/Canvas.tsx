@@ -8,6 +8,8 @@ import Link from "next/link";
 import { motion } from "framer-motion";
 import { ModeToggle } from "./theme-toggle";
 import { useTheme } from "next-themes";
+import { UserAvatar } from "./UserAvatar";
+import { Button } from "@/components/ui/button";
 
 export type Tool = "circle" | "pencil" | "rect";
 
@@ -76,15 +78,6 @@ export function Canvas({
 
             <Topbar />
             <Toolbar setSelectedTool={setSelectedTool} selectedTool={selectedTool} />
-
-            {/* Room Info Tag */}
-            <div className="absolute bottom-6 left-6 z-20 hidden md:block">
-                <div className="bg-white dark:bg-zinc-900 border-2 border-[#2c2c2c] dark:border-zinc-100 px-4 py-2 shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] dark:shadow-[4px_4px_0px_0px_rgba(255,255,255,0.3)] rotate-1">
-                    <p className="font-black uppercase italic text-xs tracking-tighter text-[#2c2c2c] dark:text-zinc-100">
-                        ROOM: <span className="text-blue-600 dark:text-blue-400">{roomId}</span>
-                    </p>
-                </div>
-            </div>
         </div>
     );
 }
@@ -103,14 +96,15 @@ function Topbar() {
 
             <div className="flex items-center gap-3 pointer-events-auto">
                 <ModeToggle />
-                <button className="px-4 py-2 bg-white dark:bg-zinc-900 border-2 border-[#2c2c2c] dark:border-zinc-100 shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] dark:shadow-[4px_4px_0px_0px_rgba(255,255,255,0.3)] font-bold uppercase text-[10px] tracking-widest text-[#2c2c2c] dark:text-zinc-100 hover:translate-x-[1px] hover:translate-y-[1px] hover:shadow-[3px_3px_0px_0px_rgba(0,0,0,1)] dark:hover:shadow-[3px_3px_0px_0px_rgba(255,255,255,0.3)] transition-all flex items-center gap-2">
+                <Button size="sm">
                     <Share2 className="w-3.5 h-3.5" />
                     Share
-                </button>
-                <button className="px-4 py-2 bg-[#2c2c2c] dark:bg-zinc-100 text-white dark:text-zinc-900 border-2 border-[#2c2c2c] dark:border-zinc-100 shadow-[4px_4px_0px_0px_rgba(59,130,246,1)] font-bold uppercase text-[10px] tracking-widest hover:translate-x-[1px] hover:translate-y-[1px] hover:shadow-[3px_3px_0px_0px_rgba(59,130,246,1)] transition-all flex items-center gap-2">
+                </Button>
+                <Button variant="primary" size="sm">
                     <Download className="w-3.5 h-3.5" />
                     Export
-                </button>
+                </Button>
+                <UserAvatar />
             </div>
         </div>
     );

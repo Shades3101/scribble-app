@@ -20,10 +20,13 @@ model User {
 model Room {
   id        Int      @id @default(autoincrement())
   slug      String   @unique
+  imageURL  String?  
   createdAt DateTime @default(now())
-  adminId   String
+  adminId   String   @unique
   chats     Chat[]
   admin     User     @relation(fields: [adminId], references: [id])
+
+  @@index([adminId])
 }
 
 model Chat {

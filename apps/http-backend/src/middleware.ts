@@ -14,12 +14,12 @@ export function authMiddleware(req: Request, res: Response, next: NextFunction) 
             req.userId = vtoken.userId;
             next()
         } else {
-            res.status(403).json({
+            res.status(401).json({
                 msg: "Unauthorized"
             })
         }
     } catch (e) {
-        res.status(403).json({
+        res.status(401).json({
             msg: "Unauthorized"
         })
     }

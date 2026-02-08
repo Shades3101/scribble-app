@@ -15,7 +15,9 @@ import {
   Github
 } from "lucide-react";
 import Link from "next/link";
-import { ModeToggle } from "@/components/theme-toggle";
+import { Button } from "@/components/ui/button";
+import { Navbar } from "@/components/Navbar";
+import { Footer } from "@/components/Footer";
 
 export default function Home() {
   return (
@@ -24,24 +26,7 @@ export default function Home() {
       <div className="fixed inset-0 z-0 opacity-[0.03] dark:opacity-[0.05] pointer-events-none"
         style={{ backgroundImage: 'radial-gradient(currentColor 1px, transparent 1px)', backgroundSize: '24px 24px' }} />
 
-      {/* Navbar */}
-      <nav className="fixed top-0 left-0 right-0 z-50 flex items-center justify-between px-6 py-4 backdrop-blur-sm bg-[#fafafa]/80 dark:bg-zinc-950/80">
-        <div className="flex items-center gap-2">
-          <div className="w-10 h-10 border-2 border-[#2c2c2c] dark:border-zinc-100 rotate-3 flex items-center justify-center rounded-sm bg-white dark:bg-zinc-900 shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] dark:shadow-[4px_4px_0px_0px_rgba(255,255,255,0.3)]">
-            <Pencil className="w-6 h-6 -rotate-12" />
-          </div>
-          <span className="text-2xl font-black tracking-tight uppercase italic">Scribble.</span>
-        </div>
-
-        <div className="hidden md:flex items-center gap-8 font-bold text-sm uppercase tracking-widest">
-          <Link href="#features" className="hover:underline decoration-2 underline-offset-4">Features</Link>
-          <Link href="/signin" className="hover:underline decoration-2 underline-offset-4">Sign In</Link>
-          <Link href="/random" className="px-6 py-2 border-2 border-[#2c2c2c] dark:border-zinc-100 bg-white dark:bg-zinc-900 shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] dark:shadow-[4px_4px_0px_0px_rgba(255,255,255,0.3)] hover:translate-x-[2px] hover:translate-y-[2px] hover:shadow-[2px_2px_0px_0px_rgba(0,0,0,1)] dark:hover:shadow-[2px_2px_0px_0px_rgba(255,255,255,0.3)] transition-all">
-            Launch Editor
-          </Link>
-          <ModeToggle />
-        </div>
-      </nav>
+      <Navbar />
 
       <main className="relative z-10">
         {/* Hero Section */}
@@ -76,9 +61,9 @@ export default function Home() {
               animate={{ opacity: 1, scale: 1 }}
               transition={{ delay: 0.5 }}
               className="flex flex-wrap justify-center gap-4">
-              <Link href="/workspace" className="px-10 py-5 bg-[#2c2c2c] dark:bg-zinc-100 text-white dark:text-zinc-900 text-xl font-black rounded-sm shadow-[8px_8px_0px_0px_rgba(59,130,246,1)] hover:translate-x-[2px] hover:translate-y-[2px] hover:shadow-[6px_6px_0px_0px_rgba(59,130,246,1)] transition-all uppercase tracking-tighter">
-                Start Drawing Free
-              </Link>
+              <Button variant="primary" size="xl" asChild className="italic tracking-tighter shadow-[8px_8px_0px_0px_rgba(59,130,246,1)] hover:shadow-[6px_6px_0px_0px_rgba(59,130,246,1)]">
+                <Link href="/workspace">Start Drawing Free</Link>
+              </Button>
             </motion.div>
           </div>
         </section>
@@ -208,30 +193,14 @@ export default function Home() {
             <p className="text-xl md:text-2xl font-bold text-zinc-500 dark:text-zinc-400 mb-12 max-w-xl mx-auto uppercase">
               Free forever. No credit card. Just pure imagination.
             </p>
-            <Link href="/workspace" className="inline-block px-12 py-6 bg-[#2c2c2c] dark:bg-zinc-100 text-white dark:text-zinc-900 text-2xl font-black shadow-[8px_8px_0px_0px_rgba(59,130,246,1)] hover:translate-x-[2px] hover:translate-y-[2px] hover:shadow-[6px_6px_0px_0px_rgba(59,130,246,1)] transition-all uppercase italic">
-              Create My First Board
-            </Link>
+            <Button variant="primary" size="xl" asChild className="italic text-2xl shadow-[8px_8px_0px_0px_rgba(59,130,246,1)] hover:shadow-[6px_6px_0px_0px_rgba(59,130,246,1)]">
+              <Link href="/workspace">Create My First Board</Link>
+            </Button>
           </div>
         </section>
       </main>
 
-      {/* Footer */}
-      <footer className="py-12 border-t-4 border-[#2c2c2c] dark:border-zinc-100 px-6 bg-white dark:bg-zinc-950">
-        <div className="max-w-6xl mx-auto flex flex-col md:flex-row justify-between items-center gap-8">
-          <div className="flex items-center gap-2">
-            <span className="text-xl font-black tracking-tight uppercase italic">Scribble.</span>
-          </div>
-          <div className="flex gap-8 font-bold text-xs uppercase tracking-widest text-zinc-500 dark:text-zinc-400">
-            <Link href="#" className="hover:text-black dark:hover:text-white">Privacy</Link>
-            <Link href="#" className="hover:text-black dark:hover:text-white">Terms</Link>
-            <Link href="#" className="hover:text-black dark:hover:text-white">Twitter</Link>
-            <Link href="#" className="hover:text-black dark:hover:text-white">GitHub</Link>
-          </div>
-          <p className="text-xs font-bold uppercase tracking-widest text-zinc-400 dark:text-zinc-500">
-            &copy; {new Date().getFullYear()} Scribble Inc. Hand-crafted with ink.
-          </p>
-        </div>
-      </footer>
+      <Footer />
     </div>
   );
 }

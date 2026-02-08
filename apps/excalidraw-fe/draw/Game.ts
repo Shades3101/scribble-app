@@ -1,12 +1,11 @@
 import { Tool } from "./tools/Tools";
 import { getExistingShapes } from "./http";
-import { Shape, Circle, Rect } from "./shapes";
+import { Shape } from "./shapes";
 import { Mouse } from "./mouse/Mouse";
 import { Renderer } from "./renderer/Renderer";
 import { tools } from "./tools";
-import { Pencil } from "./shapes/Pencil";
 import { SocketQueue } from "./SocketQueue";
-
+import { ShapeFactory } from "./shapes/ShapeFactory";
 export class Game {
 
     private canvas: HTMLCanvasElement;
@@ -64,7 +63,8 @@ export class Game {
 
         if (!this.roomId.startsWith("guest_")) {
             try {
-                this.existingShapes = await getExistingShapes(this.roomId);
+                const data = await getExistingShapes(this.roomId);
+                this.existingShapes = data.map(ShapeFactory.fromDTO);
             } catch (error) {
                 console.error("Failed to fetch existing shapes:", error);
                 this.existingShapes = [];
@@ -79,25 +79,9 @@ export class Game {
             const message = JSON.parse(event.data);
 
             if (message.type === "chat") {
-                const data = message.message;
 
-                if (data.type === "Rect") {
-                    this.existingShapes.push(
-                        new Rect(data.x, data.y, data.width, data.height)
-                    );
-                }
-
-                if (data.type === "Circle") {
-                    this.existingShapes.push(
-                        new Circle(data.centerX, data.centerY, data.radius)
-                    );
-                }
-
-                if (data.type === "Pencil") {
-                    this.existingShapes.push(
-                        new Pencil(data.points)
-                    )
-                }
+                const shape = ShapeFactory.fromDTO(message.message);
+                this.existingShapes.push(shape);
 
                 this.clearCanvas();
             }

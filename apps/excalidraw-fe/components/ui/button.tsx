@@ -5,30 +5,27 @@ import { cva, type VariantProps } from "class-variance-authority"
 import { cn } from "@/lib/utils"
 
 const buttonVariants = cva(
-  "inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-md text-sm font-medium transition-all disabled:pointer-events-none disabled:opacity-50 [&_svg]:pointer-events-none [&_svg:not([class*='size-'])]:size-4 shrink-0 [&_svg]:shrink-0 outline-none focus-visible:border-ring focus-visible:ring-ring/50 focus-visible:ring-[3px] aria-invalid:ring-destructive/20 dark:aria-invalid:ring-destructive/40 aria-invalid:border-destructive",
+  "inline-flex items-center justify-center gap-2 whitespace-nowrap font-black uppercase tracking-widest transition-all disabled:pointer-events-none disabled:opacity-50 [&_svg]:pointer-events-none [&_svg]:shrink-0 border-2 border-[#2c2c2c] dark:border-zinc-100 rounded-none focus:outline-none",
   {
     variants: {
       variant: {
-        default: "bg-primary text-primary-foreground hover:bg-primary/90",
-        destructive:
-          "bg-destructive text-white hover:bg-destructive/90 focus-visible:ring-destructive/20 dark:focus-visible:ring-destructive/40 dark:bg-destructive/60",
+        default:
+          "bg-white dark:bg-zinc-900 text-[#2c2c2c] dark:text-zinc-100 shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] dark:shadow-[4px_4px_0px_0px_rgba(255,255,255,0.3)] hover:translate-x-[2px] hover:translate-y-[2px] hover:shadow-[2px_2px_0px_0px_rgba(0,0,0,1)] dark:hover:shadow-[2px_2px_0px_0px_rgba(255,255,255,0.3)] active:translate-x-[4px] active:translate-y-[4px] active:shadow-none",
+        primary:
+          "bg-[#2c2c2c] dark:bg-zinc-100 text-white dark:text-zinc-900 shadow-[4px_4px_0px_0px_rgba(59,130,246,1)] hover:translate-x-[2px] hover:translate-y-[2px] hover:shadow-[2px_2px_0px_0px_rgba(59,130,246,1)] active:translate-x-[4px] active:translate-y-[4px] active:shadow-none",
         outline:
-          "border bg-background shadow-xs hover:bg-accent hover:text-accent-foreground dark:bg-input/30 dark:border-input dark:hover:bg-input/50",
-        secondary:
-          "bg-secondary text-secondary-foreground hover:bg-secondary/80",
+          "bg-white dark:bg-zinc-900 text-[#2c2c2c] dark:text-zinc-100 hover:text-[#2c2c2c] dark:hover:text-zinc-100 shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] dark:shadow-[4px_4px_0px_0px_rgba(255,255,255,0.3)] hover:translate-x-[2px] hover:translate-y-[2px] hover:shadow-[2px_2px_0px_0px_rgba(0,0,0,1)] dark:hover:shadow-[2px_2px_0px_0px_rgba(255,255,255,0.3)] active:translate-x-[4px] active:translate-y-[4px] active:shadow-none hover:bg-white dark:hover:bg-zinc-900",
         ghost:
-          "hover:bg-accent hover:text-accent-foreground dark:hover:bg-accent/50",
-        link: "text-primary underline-offset-4 hover:underline",
+          "bg-transparent border-transparent shadow-none hover:bg-zinc-100 dark:hover:bg-zinc-800",
+        link:
+          "text-[#2c2c2c] dark:text-zinc-100 underline-offset-4 hover:underline border-transparent shadow-none",
       },
       size: {
-        default: "h-9 px-4 py-2 has-[>svg]:px-3",
-        xs: "h-6 gap-1 rounded-md px-2 text-xs has-[>svg]:px-1.5 [&_svg:not([class*='size-'])]:size-3",
-        sm: "h-8 rounded-md gap-1.5 px-3 has-[>svg]:px-2.5",
-        lg: "h-10 rounded-md px-6 has-[>svg]:px-4",
-        icon: "size-9",
-        "icon-xs": "size-6 rounded-md [&_svg:not([class*='size-'])]:size-3",
-        "icon-sm": "size-8",
-        "icon-lg": "size-10",
+        default: "h-12 px-6 py-2 text-xs",
+        sm: "h-10 px-4 py-1.5 text-[10px]",
+        lg: "h-14 px-10 py-4 text-sm",
+        xl: "h-16 px-12 py-5 text-lg",
+        icon: "h-10 w-10 p-2",
       },
     },
     defaultVariants: {

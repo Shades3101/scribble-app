@@ -16,7 +16,7 @@ app.post("/signup", async (req, res) => {
     const parsedData = CreateUserSchema.safeParse(req.body);
 
     if (!parsedData.success) {
-        res.json({
+        res.status(400).json({
             message: "Incorrect Inputs"
         })
 
@@ -41,7 +41,7 @@ app.post("/signup", async (req, res) => {
         })
 
     } catch (e) {
-        res.status(411).json({
+        res.status(409).json({
             message: "User already exists with this username"
         })
     }
@@ -53,7 +53,7 @@ app.post("/signin", async (req, res) => {
     const parsedData = SigninSchema.safeParse(req.body);
     console.log(parsedData)
     if (!parsedData.success) {
-        res.json({
+        res.status(400).json({
             message: "Incorrect Inputs"
         })
 
@@ -67,13 +67,14 @@ app.post("/signin", async (req, res) => {
     })
 
     if (!user) {
-        res.json({
+        res.status(404).json({
             message: "Signup first"
         })
+        return;
     }
 
     if (!parsedData.data.password || !user?.password) {
-        res.json({
+        res.status(400).json({
             message: "Please Input Password"
         })
         return;
@@ -100,8 +101,10 @@ app.post("/room", authMiddleware, async (req, res) => {
     const parsedData = CreateRoomSchema.safeParse(req.body);
 
     if (!parsedData.success) {
-        res.json({
-            message: "Incorrect Inputs"
+        console.log(parsedData.error);
+        res.status(400).json({
+            message: "Incorrect Inputs",
+            error: parsedData.error
         })
 
         return;
@@ -110,7 +113,7 @@ app.post("/room", authMiddleware, async (req, res) => {
     const userId = req.userId;
 
     if (!userId) {
-        res.json({
+        res.status(400).json({
             message: "UserID is Required"
         })
         return;
@@ -120,7 +123,8 @@ app.post("/room", authMiddleware, async (req, res) => {
         const room = await prismaClient.room.create({
             data: {
                 slug: parsedData.data.name,
-                adminId: userId
+                adminId: userId,
+                imageURL: parsedData.data.imageUrl
             }
         })
 
@@ -129,7 +133,7 @@ app.post("/room", authMiddleware, async (req, res) => {
         })
 
     } catch (e) {
-        res.status(411).json({
+        res.status(409).json({
             message: "Room Already Exists with this name"
         })
     }
@@ -154,7 +158,7 @@ app.get("/chats/:roomId", async (req, res) => {
         })
     } catch (e) {
         console.log(e);
-        res.json({
+        res.status(500).json({
             messages: []
         })
     }
@@ -189,6 +193,69 @@ app.get("/room/:slug", async (req, res) => {
         })
     }
 
+})
+
+app.get("/user-rooms", authMiddleware, async (req, res) => {
+
+    const userId = req.userId;
+
+    if (!userId) {
+        return res.status(401).json({
+            message: "user not logged in or authorized"
+        })
+    }
+
+    try {
+        const userRooms = await prismaClient.room.findMany({
+            where: {
+                adminId: userId
+            }
+        })
+
+        if (userRooms.length === 0) {
+            return res.status(404).json({
+                message: "no user rooms found"
+            })
+        }
+
+        res.status(200).json({
+            userRooms
+        })
+    } catch (error) {
+        console.log(error);
+        res.status(500).json({
+            message: "Internal Server Error"
+        })
+    }
+
+})
+
+app.delete("/delete-room/:roomId", authMiddleware, async (req, res) => {
+    const userId = req.userId;
+    const roomId = Number(req.params.roomId);
+
+    if (!userId) {
+        return res.status(401).json({
+            message: "user not logged in or authorized"
+        })
+    }
+
+    try {
+        await prismaClient.room.delete({
+            where: {
+                id: roomId,
+                adminId: userId
+            }
+        })
+
+        res.status(200).json({
+            message: "Room Deleted"
+        })
+    } catch (e) {
+        res.status(500).json({
+            message: "Internal Server Error"
+        })
+    }
 })
 
 app.post("/google-login", async (req, res) => {
