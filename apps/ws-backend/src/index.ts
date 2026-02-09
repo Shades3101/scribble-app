@@ -136,7 +136,7 @@ wss.on('connection', function connection(ws, request) {
                     await prismaClient.chat.create({
                         data: {
                             roomId: Number(roomId),
-                            message,
+                            message: typeof message === 'string' ? message : JSON.stringify(message),
                             userId: user.userId
                         }
                     });

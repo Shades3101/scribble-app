@@ -16,6 +16,8 @@ app.use(cors({
     credentials: true
 }))
 
+console.log(process.env.FRONTEND_URL)
+
 const PORT = Number(process.env.PORT);
 
 
@@ -276,6 +278,7 @@ app.delete("/delete-room/:roomId", authMiddleware, async (req, res) => {
             message: "Room Deleted"
         })
     } catch (e) {
+        console.log("Failed to delete ",e)
         res.status(500).json({
             message: "Internal Server Error"
         })

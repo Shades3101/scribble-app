@@ -123,11 +123,11 @@ export default function WorkspaceClient({ Rooms, Token }: WorkspaceClientProps) 
                 </nav>
 
                 <div className="p-4 border-t-4 border-[#2c2c2c] dark:border-zinc-100 space-y-2">
-                    <button className="w-full flex items-center gap-3 px-4 py-3 font-bold uppercase text-sm hover:bg-zinc-100 dark:hover:bg-zinc-800 transition-colors">
+                    <button className="w-full flex items-center gap-3 px-4 py-3 font-bold uppercase text-sm hover:bg-zinc-100 dark:hover:bg-zinc-800 transition-colors cursor-pointer">
                         <Settings className="w-5 h-5" />
                         Settings
                     </button>
-                    <button className="w-full flex items-center gap-3 px-4 py-3 font-bold uppercase text-sm hover:text-red-600 transition-colors"
+                    <button className="w-full flex items-center gap-3 px-4 py-3 font-bold uppercase text-sm hover:text-red-600 hover:bg-zinc-100 dark:hover:bg-zinc-800 transition-colors cursor-pointer"
                         onClick={() => signOut({ callbackUrl: "/" })} >
                         <LogOut className="w-5 h-5" />
                         Sign Out
