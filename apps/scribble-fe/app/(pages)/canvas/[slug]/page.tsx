@@ -8,15 +8,16 @@ async function getRoomId(slug: string) {
     try {
         const response = await axios.get(`${HTTP_BACKEND}/room/${slug}`);
         return response.data.room.id;
-    } catch (e) {
+    } catch (error) {
+        console.log(error);
         return null;
     }
 }
 
 export default async function CanvasPage({ params }: {
-    params: {
+    params: Promise<{
         slug: string
-    }
+    }>
 }) {
 
     const user = await getUser();

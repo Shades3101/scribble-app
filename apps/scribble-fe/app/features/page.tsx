@@ -7,7 +7,6 @@ import {
     Pencil,
     Moon,
     Download,
-    Cloud,
     CheckCircle2,
     Clock,
     Save,

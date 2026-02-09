@@ -47,9 +47,17 @@ const SignUp = () => {
 
             console.log("SignUp Successful", response.data);
             router.push("/signin");
-        } catch (error: any) {
-            console.error("SignUp Failed:", error.response?.data || error.message);
-            setError(error.response?.data?.message || "SignUp Failed. Please try again.");
+
+        } catch (error: unknown) {
+            
+            if (axios.isAxiosError(error)) {
+                console.error("SignUp Failed:", error.response?.data || error.message);
+                setError(error.response?.data?.message || "SignUp Failed. Please try again.");
+
+            } else {
+                console.error("SignUp Failed:", error);
+                setError("SignUp Failed. Please try again.");
+            }
         } finally {
             setIsLoading(false);
         }

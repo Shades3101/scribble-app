@@ -3,7 +3,6 @@
 import { WS_URL } from "@/config";
 import { useEffect, useState } from "react";
 import { Canvas } from "./Canvas";
-import { error } from "console";
 
 export function RoomCanvas({ roomId, token }: { roomId: string; token: string }) {
 
@@ -37,6 +36,6 @@ export function RoomCanvas({ roomId, token }: { roomId: string; token: string })
     }
 
     return <div>
-            <Canvas roomId={roomId} socket={socket} />
-        </div>
+        <Canvas roomId={roomId} socket={socket} />
+    </div>
 }
