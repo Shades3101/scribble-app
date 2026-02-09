@@ -1,7 +1,13 @@
 import { NextFunction, Request, Response } from "express";
 import jwt, { JwtPayload } from "jsonwebtoken"
 
-export const SECRET = process.env.JWT_SECRET || "1234567890";
+const SECRET_ENV = process.env.JWT_SECRET;
+
+if (!SECRET_ENV) {
+    throw new Error("JWT_SECRET environment variable is required");
+}
+
+export const SECRET: string = SECRET_ENV;
 
 export function authMiddleware(req: Request, res: Response, next: NextFunction) {
 

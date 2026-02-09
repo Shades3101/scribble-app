@@ -11,7 +11,10 @@ import cors from 'cors';
 
 const app = express();
 app.use(express.json());
-app.use(cors())
+app.use(cors({
+    origin: process.env.FRONTEND_URL,
+    credentials: true
+}))
 
 const PORT = Number(process.env.PORT);
 
@@ -85,19 +88,35 @@ app.post("/signin", async (req, res) => {
         return;
     }
 
-    const passMatch = await bcrypt.compare(parsedData.data.password, user.password)
+    try {
+        const passMatch = await bcrypt.compare(parsedData.data.password, user.password)
 
-    if (passMatch) {
+        if (passMatch) {
 
-        const token = jwt.sign({
-            userId: user.id
-        }, SECRET)
+            const token = jwt.sign({
+                userId: user.id
+            }, SECRET, {
+                expiresIn: "1d"
+            })
 
-        res.json({
-            token,
-            userId: user.id
+            res.json({
+                token,
+                userId: user.id
+            })
+        } else {
+            console.log("Incorrect Password");
+            res.status(401).json({
+                message: "Unauthorized"
+            })
+        }
+    } catch (error) {
+        console.log(error);
+        res.status(500).json({
+            message: "Internal Server Error"
         })
     }
+
+
 
 })
 
@@ -274,34 +293,30 @@ app.post("/google-login", async (req, res) => {
             return;
         }
 
-        let user = await prismaClient.user.findFirst({
+        const user = await prismaClient.user.upsert({
             where: {
                 email
+            },
+            update: {
+                name,
+                photo
+            },
+            create: {
+                email,
+                name,
+                photo
             }
         });
 
-        if (!user) {
-            user = await prismaClient.user.create({
-                data: {
-                    email,
-                    name,
-                    photo
-                }
-            });
-        } else if (photo && user.photo !== photo) {
-            await prismaClient.user.update({
-                where: { id: user.id },
-                data: { photo }
-            });
-        }
-
         const token = jwt.sign({
             userId: user.id
-        }, SECRET, { expiresIn: "1d" });
+        }, SECRET, {
+            expiresIn: "1d"
+        });
 
         res.json({
-            message: "Google Login Success",
-            data: { userId: user.id, token: token }
+            token,
+            userId: user.id
         });
 
     } catch (error) {

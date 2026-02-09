@@ -11,7 +11,13 @@ const wss = new WebSocketServer({ port: PORT });
 
 console.log("ws server listening on ", PORT)
 
-const SECRET = process.env.JWT_SECRET || "1234567890";
+const SECRET_ENV = process.env.JWT_SECRET;
+
+if (!SECRET_ENV) {
+    throw new Error("JWT Secret is not defined")
+}
+
+const SECRET: string = SECRET_ENV;
 
 interface User {
     ws: WebSocket,
@@ -38,13 +44,12 @@ function checkUser(token: string): string | null {
         if (!vtoken || !vtoken.userId) {
             return null
         }
-        console.log("user reached here")
-        return vtoken.userId
+        console.log("user reached here");
 
+        return vtoken.userId;
     } catch (e) {
         return null
     }
-    return null;
 }
 
 wss.on('connection', function connection(ws, request) {

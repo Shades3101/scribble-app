@@ -4,11 +4,24 @@ import CredentialsProvider from "next-auth/providers/credentials";
 import axios from "axios";
 import { HTTP_BACKEND } from "@/config";
 
+const NEXTAUTH_SECRET = process.env.NEXTAUTH_SECRET;
+
+if(!NEXTAUTH_SECRET) {
+    throw new Error("NEXTAUTH_SECRET env variable is required")
+}
+
+const GOOGLE_CLIENT_ID = process.env.GOOGLE_CLIENT_ID;
+const GOOGLE_CLIENT_SECRET = process.env.GOOGLE_CLIENT_SECRET;
+
+if (!GOOGLE_CLIENT_ID || !GOOGLE_CLIENT_SECRET) {
+    throw new Error("Google OAuth credentials (GOOGLE_CLIENT_ID and GOOGLE_CLIENT_SECRET) are required");
+}
+
 export const authOptions: NextAuthOptions = {
     providers: [
         GoogleProvider({
-            clientId: process.env.GOOGLE_CLIENT_ID || "",
-            clientSecret: process.env.GOOGLE_CLIENT_SECRET || "",
+            clientId: GOOGLE_CLIENT_ID,
+            clientSecret: GOOGLE_CLIENT_SECRET,
         }),
 
         CredentialsProvider({
@@ -45,11 +58,11 @@ export const authOptions: NextAuthOptions = {
         })
     ],
 
-    secret: process.env.NEXTAUTH_SECRET,
+    secret: NEXTAUTH_SECRET,
 
     callbacks: {
         async jwt({ token, user, account }) {
-            // Store user id in token
+            // Storing user id in token
             if (user) {
                 token.userId = user.id;
             }
@@ -67,9 +80,9 @@ export const authOptions: NextAuthOptions = {
                         photo: user.image
                     });
 
-                    if (res.data && res.data.data && res.data.data.token) {
-                        token.accessToken = res.data.data.token;
-                        token.userId = res.data.data.userId;
+                    if (res.data && res.data.token) {
+                        token.accessToken = res.data.token;
+                        token.userId = res.data.userId;
                     }
                 } catch (error) {
                     console.error("Failed to sync user with backend:", error);
