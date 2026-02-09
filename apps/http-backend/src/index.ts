@@ -1,15 +1,20 @@
+import dotenv from "dotenv";
+dotenv.config();
+
 import express from "express";
-import { authMiddleware } from "./middleware";
+import { authMiddleware, SECRET } from "./middleware";
 import { CreateUserSchema, SigninSchema, CreateRoomSchema } from "@repo/common/types";
 import { prismaClient } from "@repo/db/client";
 import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
-import { JWT_SECRET } from "@repo/backend-common/config";
 import cors from 'cors';
 
 const app = express();
 app.use(express.json());
 app.use(cors())
+
+const PORT = Number(process.env.PORT);
+
 
 app.post("/signup", async (req, res) => {
 
@@ -86,7 +91,7 @@ app.post("/signin", async (req, res) => {
 
         const token = jwt.sign({
             userId: user.id
-        }, JWT_SECRET)
+        }, SECRET)
 
         res.json({
             token,
@@ -292,7 +297,7 @@ app.post("/google-login", async (req, res) => {
 
         const token = jwt.sign({
             userId: user.id
-        }, JWT_SECRET, { expiresIn: "1d" });
+        }, SECRET, { expiresIn: "1d" });
 
         res.json({
             message: "Google Login Success",
@@ -308,4 +313,6 @@ app.post("/google-login", async (req, res) => {
 })
 
 
-app.listen(3001);
+app.listen(PORT, () => {
+    console.log(`Server running on port ${PORT}`);
+});

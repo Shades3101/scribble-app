@@ -10,16 +10,16 @@ const inter = Inter({
 });
 
 export const metadata: Metadata = {
-  title: "Excalidraw | Virtual Whiteboard for Sketching Diagrams",
+  title: "Scribble | Virtual Whiteboard for Sketching Diagrams",
   description:
     "Create hand-drawn style diagrams with real-time collaboration, complete privacy, and unlimited possibilities. No account needed.",
   openGraph: {
-    title: "SketchFlow | Virtual Whiteboard",
+    title: "Scribble | Virtual Whiteboard",
     description: "Create beautiful hand-drawn diagrams collaboratively",
   },
   twitter: {
     card: "summary_large_image",
-    title: "Excalidraw | Virtual Whiteboard",
+    title: "Scribble | Virtual Whiteboard",
     description: "Create beautiful hand-drawn diagrams collaboratively",
   },
 };

@@ -1,6 +1,7 @@
-import { JWT_SECRET } from "@repo/backend-common/config";
 import { NextFunction, Request, Response } from "express";
 import jwt, { JwtPayload } from "jsonwebtoken"
+
+export const SECRET = process.env.JWT_SECRET || "1234567890";
 
 export function authMiddleware(req: Request, res: Response, next: NextFunction) {
 
@@ -8,7 +9,7 @@ export function authMiddleware(req: Request, res: Response, next: NextFunction) 
     const token = authHeader.startsWith('Bearer ') ? authHeader.slice(7) : authHeader;
 
     try {
-        const vtoken = jwt.verify(token, JWT_SECRET) as JwtPayload;
+        const vtoken = jwt.verify(token, SECRET) as JwtPayload;
 
         if (vtoken && vtoken.userId) {
             req.userId = vtoken.userId;
