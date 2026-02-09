@@ -19,7 +19,7 @@ export function ModeToggle() {
     return (
         <button
             onClick={() => setTheme(theme === "dark" ? "light" : "dark")}
-            className="p-2 border-2 border-[#2c2c2c] dark:border-zinc-100 bg-white dark:bg-zinc-900 rounded-sm shadow-[2px_2px_0px_0px_rgba(0,0,0,1)] dark:shadow-[2px_2px_0px_0px_rgba(255,255,255,0.3)] hover:translate-x-[1px] hover:translate-y-[1px] hover:shadow-none transition-all"
+            className="p-2 cursor-pointer border-2 border-[#2c2c2c] dark:border-zinc-100 bg-white dark:bg-zinc-900 rounded-sm shadow-[2px_2px_0px_0px_rgba(0,0,0,1)] dark:shadow-[2px_2px_0px_0px_rgba(255,255,255,0.3)] hover:translate-x-[1px] hover:translate-y-[1px] hover:shadow-none transition-all"
             aria-label="Toggle theme"
         >
             {theme === 'dark' ? (

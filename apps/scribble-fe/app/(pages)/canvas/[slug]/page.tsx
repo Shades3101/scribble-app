@@ -1,5 +1,6 @@
 import { RoomCanvas } from "@/components/RoomCanvas";
 import { HTTP_BACKEND } from "@/config";
+import getUser from "@/lib/authGuard";
 import { getAccessToken } from "@/lib/getAccessToken";
 import axios from "axios";
 
@@ -17,6 +18,12 @@ export default async function CanvasPage({ params }: {
         slug: string
     }
 }) {
+
+    const user = await getUser();
+    if (!user) {
+        return;
+    }
+
     const slug = (await params).slug;
     const roomId = await getRoomId(slug);
     const token = await getAccessToken();

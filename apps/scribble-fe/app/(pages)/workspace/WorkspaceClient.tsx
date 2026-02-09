@@ -9,6 +9,7 @@ import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from 
 import { Button } from "@/components/ui/button";
 import axios from "axios";
 import { HTTP_BACKEND } from "@/config";
+import { signOut } from "next-auth/react";
 
 interface RoomType {
     id: string;
@@ -126,7 +127,8 @@ export default function WorkspaceClient({ Rooms, Token }: WorkspaceClientProps) 
                         <Settings className="w-5 h-5" />
                         Settings
                     </button>
-                    <button className="w-full flex items-center gap-3 px-4 py-3 font-bold uppercase text-sm hover:text-red-600 transition-colors">
+                    <button className="w-full flex items-center gap-3 px-4 py-3 font-bold uppercase text-sm hover:text-red-600 transition-colors"
+                        onClick={() => signOut({ callbackUrl: "/" })} >
                         <LogOut className="w-5 h-5" />
                         Sign Out
                     </button>

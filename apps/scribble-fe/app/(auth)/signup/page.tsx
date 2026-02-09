@@ -190,10 +190,10 @@ const SignUp = () => {
                             <Button
                                 variant="outline"
                                 size="sm"
-                                className="w-full"
-                                onClick={() => signIn("google", { callbackUrl: "/" })}
+                                className="w-full shadow-[4px_4px_0px_0px_rgba(0,0,0,1)]"
+                                onClick={() => signIn("google", { callbackUrl: "/workspace" })}
                             >
-                                <Image src={"/google.svg"} width={16} height={16} alt="Google" className="grayscale contrast-125" />
+                                <Image src={"/google.svg"} width={16} height={16} alt="Google" />
                                 Google Account
                             </Button>
                         </div>

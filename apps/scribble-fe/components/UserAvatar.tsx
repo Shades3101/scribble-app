@@ -110,10 +110,8 @@ export function UserAvatar({ size = "default", showDropdown = true }: UserAvatar
 
                     {/* Sign Out */}
                     <div className="border-t-2 border-[#2c2c2c]/10 dark:border-zinc-100/20 py-1">
-                        <button
-                            onClick={() => signOut({ callbackUrl: "/" })}
-                            className="flex items-center gap-3 px-3 py-2 w-full text-red-600 dark:text-red-400 hover:bg-red-50 dark:hover:bg-red-950/30 transition-colors"
-                        >
+                        <button onClick={() => signOut({ callbackUrl: "/" })}
+                            className="flex items-center gap-3 px-3 py-2 w-full text-red-600 dark:text-red-400 hover:bg-red-50 dark:hover:bg-red-950/30 transition-colors">
                             <LogOut className="w-4 h-4" />
                             <span className="font-bold uppercase text-[10px] tracking-widest">Sign Out</span>
                         </button>
