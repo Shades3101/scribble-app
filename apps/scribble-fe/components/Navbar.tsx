@@ -21,7 +21,7 @@ export function Navbar() {
       <div className="hidden md:flex items-center gap-6 font-bold text-sm uppercase tracking-widest">
         <Link href="/features" className="hover:underline decoration-2 underline-offset-4 decoration-blue-500 hover:text-blue-600 dark:hover:text-blue-400 transition-colors">Features</Link>
         <Button asChild className="font-bold border-2 border-black dark:border-zinc-200 shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] hover:shadow-[2px_2px_0px_0px_rgba(0,0,0,1)] transition-all bg-white text-black dark:bg-zinc-900 dark:text-zinc-100 dark:shadow-[4px_4px_0px_0px_rgba(255,255,255,0.5)] dark:hover:shadow-[2px_2px_0px_0px_rgba(255,255,255,0.5)]">
-          <Link href="/random">Launch Editor</Link>
+          <Link href="/Guest">Launch Editor</Link>
         </Button>
         <ModeToggle />
         <UserAvatar />

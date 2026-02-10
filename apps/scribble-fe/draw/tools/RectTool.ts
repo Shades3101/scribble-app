@@ -1,8 +1,8 @@
 import { Renderer } from "../renderer/Renderer";
 import { Rect } from "../shapes";
-import { Tool } from "./Tools";
+import { ToolInterface } from "./Tools";
 
-export class RectTool implements Tool {
+export class RectTool implements ToolInterface {
     preview(renderer: Renderer, startX: number, startY: number, x: number, y: number) {
         const width = x - startX;
         const height = y - startY;

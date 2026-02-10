@@ -167,7 +167,7 @@ export default function WorkspaceClient({ Rooms, Token }: WorkspaceClientProps) 
                                         />
 
                                         <label className="text-sm font-black uppercase tracking-widest">Image URL (Optional)</label>
-                                        <input autoFocus placeholder="Image URL (optional)" value={imageUrl} onChange={(e) => setImageUrl(e.target.value)}
+                                        <input placeholder="Image URL (optional)" value={imageUrl} onChange={(e) => setImageUrl(e.target.value)}
                                             className="w-full px-4 py-3 border-2 border-[#2c2c2c] dark:border-zinc-100 bg-white dark:bg-zinc-800 dark:text-zinc-100 shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] dark:shadow-[4px_4px_0px_0px_rgba(255,255,255,0.3)] focus:outline-none font-bold text-lg"
                                         />
                                     </div>

@@ -4,14 +4,14 @@ import { Shape } from "../shapes";
 
 //heart of my system :)
 
-export interface Tool {
-    preview (
+export interface ToolInterface {
+    preview(
         renderer: Renderer,
         startX: number,
         startY: number,
         x: number,
         y: number
-    ) : void;
+    ): void;
 
     create(
         startX: number,

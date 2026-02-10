@@ -1,9 +1,9 @@
-import { Tool } from "./tools/Tools";
+import { ToolInterface } from "./tools/Tools";
 import { getExistingShapes } from "./http";
 import { Shape } from "./shapes";
 import { Mouse } from "./mouse/Mouse";
 import { Renderer } from "./renderer/Renderer";
-import { tools } from "./tools";
+import { toolRegistry } from "./tools";
 import { SocketQueue } from "./SocketQueue";
 import { ShapeFactory } from "./shapes/ShapeFactory";
 export class Game {
@@ -17,7 +17,7 @@ export class Game {
     socket: WebSocket;
     private socketQueue: SocketQueue;
     private mouse = new Mouse();
-    private currentTool: Tool = tools.circle;
+    private currentTool: ToolInterface = toolRegistry.circle;
 
     private bgColor: string = "#fafafa";
     private strokeColor: string = "#2c2c2c";
@@ -46,9 +46,9 @@ export class Game {
         this.canvas.removeEventListener("mousemove", this.mouseMoveHandler)
     }
 
-    setTool(tool: "circle" | "rect" | "pencil") {
-        if (tool in tools) {
-            this.currentTool = tools[tool as keyof typeof tools];
+    setTool(tool: "circle" | "rect" | "pencil" | "pointer") {
+        if (tool in toolRegistry) {
+            this.currentTool = toolRegistry[tool as keyof typeof toolRegistry];
         }
     }
 

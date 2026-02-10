@@ -1,7 +1,8 @@
 "use client";
 
 import Link from "next/link";
-import { Github, Twitter } from "lucide-react";
+import { Github } from "lucide-react";
+import { FaXTwitter } from "react-icons/fa6";
 
 export function Footer() {
     return (
@@ -14,7 +15,7 @@ export function Footer() {
                     <Link href="#" className="hover:text-black dark:hover:text-white transition-colors">Privacy</Link>
                     <Link href="#" className="hover:text-black dark:hover:text-white transition-colors">Terms</Link>
                     <Link href="#" className="hover:text-black dark:hover:text-white flex items-center gap-1 transition-colors">
-                        <Twitter className="w-4 h-4" />
+                        <FaXTwitter className="w-4 h-4" />
                         Twitter
                     </Link>
                     <Link href="#" className="hover:text-black dark:hover:text-white flex items-center gap-1 transition-colors">

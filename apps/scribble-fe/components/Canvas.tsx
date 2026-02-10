@@ -2,7 +2,8 @@
 
 import { useEffect, useRef, useState } from "react";
 import { IconButton } from "./IconButton";
-import { Circle, Pencil, RectangleHorizontalIcon, MousePointer2, Type, Eraser, Share2, Download, Home } from "lucide-react";
+import { Circle, Pencil, RectangleHorizontalIcon, MousePointer2, Type, Eraser, Download, ArrowLeft } from "lucide-react";
+import { ShareButton } from "./ShareButton";
 import { Game } from "@/draw/Game";
 import Link from "next/link";
 import { motion } from "framer-motion";
@@ -11,7 +12,7 @@ import { useTheme } from "next-themes";
 import { UserAvatar } from "./UserAvatar";
 import { Button } from "@/components/ui/button";
 
-export type Tool = "circle" | "pencil" | "rect";
+export type Tool = "circle" | "pencil" | "rect" | "pointer";
 
 export function Canvas({
     roomId,
@@ -22,7 +23,7 @@ export function Canvas({
 }) {
     const canvasRef = useRef<HTMLCanvasElement>(null);
     const [game, setGame] = useState<Game>();
-    const [selectedTool, setSelectedTool] = useState<Tool>("pencil");
+    const [selectedTool, setSelectedTool] = useState<Tool>("pointer");
     const { resolvedTheme } = useTheme();
     const [mounted, setMounted] = useState(false);
 
@@ -74,6 +75,7 @@ export function Canvas({
                 width={typeof window !== 'undefined' ? window.innerWidth : 1000}
                 height={typeof window !== 'undefined' ? window.innerHeight : 1000}
                 className="relative z-10 touch-none"
+                style={{ cursor: selectedTool === "pointer" ? "default" : "crosshair" }}
             />
 
             <Topbar />
@@ -87,7 +89,7 @@ function Topbar() {
         <div className="absolute top-6 left-6 right-6 z-20 flex items-center justify-between pointer-events-none">
             <div className="flex items-center gap-4 pointer-events-auto">
                 <Link href="/workspace" className="p-2 bg-white dark:bg-zinc-900 border-2 border-[#2c2c2c] dark:border-zinc-100 shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] dark:shadow-[4px_4px_0px_0px_rgba(255,255,255,0.3)] hover:translate-x-[1px] hover:translate-y-[1px] hover:shadow-[3px_3px_0px_0px_rgba(0,0,0,1)] dark:hover:shadow-[3px_3px_0px_0px_rgba(255,255,255,0.3)] transition-all">
-                    <Home className="w-5 h-5 text-[#2c2c2c] dark:text-zinc-100" />
+                    <ArrowLeft className="w-5 h-5 text-[#2c2c2c] dark:text-zinc-100" />
                 </Link>
                 <div className="px-4 py-2 bg-white dark:bg-zinc-900 border-2 border-[#2c2c2c] dark:border-zinc-100 shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] dark:shadow-[4px_4px_0px_0px_rgba(255,255,255,0.3)] -rotate-1">
                     <span className="font-black uppercase italic tracking-tighter text-[#2c2c2c] dark:text-zinc-100">Scribble.</span>
@@ -96,10 +98,7 @@ function Topbar() {
 
             <div className="flex items-center gap-3 pointer-events-auto">
                 <ModeToggle />
-                <Button size="sm">
-                    <Share2 className="w-3.5 h-3.5" />
-                    Share
-                </Button>
+                <ShareButton />
                 <Button variant="primary" size="sm">
                     <Download className="w-3.5 h-3.5" />
                     Export
@@ -122,9 +121,9 @@ function Toolbar({ selectedTool, setSelectedTool }: {
                 className="flex flex-col gap-3 p-2 bg-white dark:bg-zinc-900 border-4 border-[#2c2c2c] dark:border-zinc-100 shadow-[8px_8px_0px_0px_rgba(0,0,0,1)] dark:shadow-[8px_8px_0px_0px_rgba(255,255,255,0.3)]"
             >
                 <IconButton
-                    activated={false}
+                    activated={selectedTool === "pointer"}
                     icon={<MousePointer2 className="w-5 h-5" />}
-                    onClick={() => { }}
+                    onClick={() => setSelectedTool("pointer")}
                 />
                 <div className="h-[2px] bg-[#2c2c2c]/10 dark:bg-zinc-100/20 mx-2" />
 
