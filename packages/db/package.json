@@ -2,13 +2,13 @@
   "name": "@repo/db",
   "version": "1.0.0",
   "description": "",
-  "main": "index.js",
+  "main": "./dist/client.js",
   "exports": {
-    "./*": "./src/*.ts"
+    "./*": "./dist/*.js"
   },
   "scripts": {
     "postinstall": "prisma generate",
-    "build": "prisma generate",
+    "build": "prisma generate && tsc -b",
     "db:push": "prisma db push",
     "db:migrate": "prisma migrate dev",
     "db:studio": "prisma studio",
