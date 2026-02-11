@@ -40,6 +40,9 @@
         "*.tsbuildinfo"
       ]
     },
+    "@repo/db#build": {
+      "cache": false
+    },
     "dev": {
       "cache": false,
       "persistent": true

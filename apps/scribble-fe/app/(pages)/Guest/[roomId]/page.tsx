@@ -1,6 +1,6 @@
 import { GuestRoomCanvas } from "@/components/GuestRoomCanvas";
 
-export default async function GuestRoomPage({ params }: { params: { roomId: string } }) {
+export default async function GuestRoomPage({ params }: { params: Promise<{ roomId: string }> }) {
 
     const roomId = (await params).roomId;
     return (
