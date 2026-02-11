@@ -5,7 +5,11 @@
     "NODE_ENV",
     "DATABASE_URL",
     "NEXTAUTH_SECRET",
-    "NEXTAUTH_URL"
+    "NEXTAUTH_URL",
+    "GOOGLE_CLIENT_ID",
+    "GOOGLE_CLIENT_SECRET",
+    "NEXT_PUBLIC_HTTP_BACKEND",
+    "NEXT_PUBLIC_WS_BACKEND"
   ],
   "tasks": {
     "build": {
