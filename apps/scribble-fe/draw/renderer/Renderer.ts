@@ -1,3 +1,4 @@
+import { Camera } from "../camera/Camera";
 import { Shape } from "../shapes";
 
 export class Renderer {
@@ -5,7 +6,8 @@ export class Renderer {
     constructor(
         private ctx: CanvasRenderingContext2D,
         private bgColor: string,
-        private strokeColor: string
+        private strokeColor: string,
+        private camera: Camera
     ) { }
 
 
@@ -15,15 +17,17 @@ export class Renderer {
     }
 
     clear(width: number, height: number) {
-        this.ctx.clearRect(0, 0, width, height);
+        this.ctx.resetTransform();
         this.ctx.fillStyle = this.bgColor;
-        this.ctx.fillRect(0, 0, width, height);
+        this.ctx.clearRect(0, 0, width, height);
     }
 
     drawShapes(shapes: Shape[]) {
-        shapes.forEach(shape =>
-            shape.draw(this.ctx, this.strokeColor)
-        );
+        this.camera.apply(this.ctx);
+
+        for(const shape of shapes){
+            shape.draw(this.ctx, this.strokeColor);
+        }
     }
 
     previewRect(x: number, y: number, w: number, h: number) {

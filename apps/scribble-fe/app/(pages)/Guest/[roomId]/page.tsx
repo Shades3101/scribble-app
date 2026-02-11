@@ -1,9 +1,11 @@
 import { GuestRoomCanvas } from "@/components/GuestRoomCanvas";
 
-export default function GuestRoomPage({ params }: { params: { roomId: string } }) {
+export default async function GuestRoomPage({ params }: { params: { roomId: string } }) {
+
+    const roomId = (await params).roomId;
     return (
         <div className="h-screen w-screen">
-            <GuestRoomCanvas roomId={params.roomId} />
+            <GuestRoomCanvas roomId={roomId} />
         </div>
     );
 }

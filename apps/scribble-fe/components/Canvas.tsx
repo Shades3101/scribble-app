@@ -78,28 +78,35 @@ export function Canvas({
                 style={{ cursor: selectedTool === "pointer" ? "default" : "crosshair" }}
             />
 
-            <Topbar />
+            <Topbar roomId={roomId} />
             <Toolbar setSelectedTool={setSelectedTool} selectedTool={selectedTool} />
         </div>
     );
 }
 
-function Topbar() {
+function Topbar({ roomId }: { roomId: string }) {
+    const isGuest = roomId.startsWith("guest");
+
     return (
         <div className="absolute top-6 left-6 right-6 z-20 flex items-center justify-between pointer-events-none">
             <div className="flex items-center gap-4 pointer-events-auto">
-                <Link href="/workspace" className="p-2 bg-white dark:bg-zinc-900 border-2 border-[#2c2c2c] dark:border-zinc-100 shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] dark:shadow-[4px_4px_0px_0px_rgba(255,255,255,0.3)] hover:translate-x-[1px] hover:translate-y-[1px] hover:shadow-[3px_3px_0px_0px_rgba(0,0,0,1)] dark:hover:shadow-[3px_3px_0px_0px_rgba(255,255,255,0.3)] transition-all">
-                    <ArrowLeft className="w-5 h-5 text-[#2c2c2c] dark:text-zinc-100" />
-                </Link>
-                <div className="px-4 py-2 bg-white dark:bg-zinc-900 border-2 border-[#2c2c2c] dark:border-zinc-100 shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] dark:shadow-[4px_4px_0px_0px_rgba(255,255,255,0.3)] -rotate-1">
-                    <span className="font-black uppercase italic tracking-tighter text-[#2c2c2c] dark:text-zinc-100">Scribble.</span>
+                {!isGuest && (
+                    <Link href="/workspace"
+                        className="p-2 bg-white dark:bg-zinc-900 border-2 border-[#2c2c2c] dark:border-zinc-100 shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] dark:shadow-[4px_4px_0px_0px_rgba(255,255,255,0.3)] hover:translate-x-[1px] hover:translate-y-[1px] hover:shadow-[3px_3px_0px_0px_rgba(0,0,0,1)] dark:hover:shadow-[3px_3px_0px_0px_rgba(255,255,255,0.3)] transition-all">
+                        <ArrowLeft className="w-5 h-5 text-[#2c2c2c] dark:text-zinc-100" />
+                    </Link>
+                )}
+                <div className="px-4 py-2 bg-white dark:bg-zinc-900 border-2 border-[#2c2c2c] dark:border-zinc-100 shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] dark:shadow-[4px_4px_0px_0px_rgba(255,255,255,0.3)] -rotate-1 cursor-pointer">
+                    <Link href={"/"}>
+                        <span className="font-black uppercase italic tracking-tighter text-[#2c2c2c] dark:text-zinc-100">Scribble.</span>
+                    </Link>
                 </div>
             </div>
 
             <div className="flex items-center gap-3 pointer-events-auto">
                 <ModeToggle />
                 <ShareButton />
-                <Button variant="primary" size="sm">
+                <Button variant="primary" size="sm" hidden>
                     <Download className="w-3.5 h-3.5" />
                     Export
                 </Button>

@@ -4,7 +4,11 @@ import { Shape } from "../shapes";
 
 //heart of my system :)
 
+export type ToolType = "circle" | "rect" | "pencil" | "pointer";
+
 export interface ToolInterface {
+    type: ToolType;
+
     preview(
         renderer: Renderer,
         startX: number,

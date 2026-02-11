@@ -1,8 +1,10 @@
 import { Renderer } from "../renderer/Renderer";
 import { Pencil } from "../shapes/Pencil";
-import { ToolInterface } from "./Tools";
+import { ToolInterface, ToolType } from "./Tools";
 
 export class PencilTool implements ToolInterface {
+    type: ToolType = "pencil";
+
 
     private points : {x: number, y: number}[] = [] ; 
 

@@ -6,6 +6,7 @@ import { Renderer } from "./renderer/Renderer";
 import { toolRegistry } from "./tools";
 import { SocketQueue } from "./SocketQueue";
 import { ShapeFactory } from "./shapes/ShapeFactory";
+import { Camera } from "./camera/Camera";
 export class Game {
 
     private canvas: HTMLCanvasElement;
@@ -16,8 +17,9 @@ export class Game {
     private roomId: string;
     socket: WebSocket;
     private socketQueue: SocketQueue;
-    private mouse = new Mouse();
     private currentTool: ToolInterface = toolRegistry.circle;
+    private camera = new Camera();
+    private mouse = new Mouse(this.camera);
 
     private bgColor: string = "#fafafa";
     private strokeColor: string = "#2c2c2c";
@@ -30,7 +32,7 @@ export class Game {
         this.bgColor = isDark ? "#09090b" : "#fafafa";
         this.strokeColor = isDark ? "#f4f4f5" : "#2c2c2c";
         const ctx = canvas.getContext("2d")!;
-        this.renderer = new Renderer(ctx, this.bgColor, this.strokeColor);
+        this.renderer = new Renderer(ctx, this.bgColor, this.strokeColor, this.camera);
 
         this.init();
         this.initHandlers();
@@ -106,8 +108,8 @@ export class Game {
         const shape = this.currentTool.create(
             this.mouse.startX,
             this.mouse.startY,
-            this.mouse.x,
-            this.mouse.y
+            this.mouse.worldX,
+            this.mouse.worldY
         )
 
         if (!shape) {
@@ -128,7 +130,15 @@ export class Game {
 
         this.mouse.update(e, this.canvas);
 
-        if (!this.mouse.isClicked) {
+        if (this.currentTool.type === "pointer" && this.mouse.isClicked) {
+            this.camera.x += e.movementX;
+            this.camera.y += e.movementY;
+            this.clearCanvas();
+            return;
+        }
+
+
+        if(!this.mouse.isClicked) {
             return
         }
         this.clearCanvas();
@@ -137,8 +147,8 @@ export class Game {
             this.renderer,
             this.mouse.startX,
             this.mouse.startY,
-            this.mouse.x,
-            this.mouse.y
+            this.mouse.worldX,
+            this.mouse.worldY
         );
     }
 
