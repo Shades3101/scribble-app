@@ -44,10 +44,10 @@ function checkUser(token: string): string | null {
         if (!vtoken || !vtoken.userId) {
             return null
         }
-        console.log("user reached here");
 
         return vtoken.userId;
     } catch (e) {
+        console.error("JWT Verification failed:", e);
         return null
     }
 }
