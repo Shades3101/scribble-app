@@ -7,7 +7,10 @@ import { prismaClient } from "@repo/db/client"
 import crypto from "crypto";
 
 const PORT = Number(process.env.PORT);
-const wss = new WebSocketServer({ port: PORT });
+const wss = new WebSocketServer({
+    port: PORT,
+    host: '0.0.0.0'  // Required for Railway to proxy WebSocket connections
+});
 
 console.log("ws server listening on ", PORT)
 
