@@ -25,7 +25,7 @@ export class Renderer {
     drawShapes(shapes: Shape[]) {
         this.camera.apply(this.ctx);
 
-        for(const shape of shapes){
+        for (const shape of shapes) {
             shape.draw(this.ctx, this.strokeColor);
         }
     }
@@ -47,6 +47,7 @@ export class Renderer {
             return
         }
 
+        this.ctx.save();
         this.ctx.strokeStyle = this.strokeColor;
         this.ctx.lineWidth = 2;
         this.ctx.lineCap = "round";
@@ -60,5 +61,31 @@ export class Renderer {
 
         this.ctx.stroke();
         this.ctx.closePath();
+        this.ctx.restore();
+    }
+
+    previewEraser(points: { x: number, y: number }[]) {
+
+        if (points.length < 2) {
+            return;
+        }
+
+        this.ctx.save();
+        this.ctx.strokeStyle = this.bgColor === "#fafafa"
+            ? "rgba(0, 0, 0, 0.2)"
+            : "rgba(255, 255, 255, 0.2)";
+        this.ctx.lineWidth = 20;
+        this.ctx.lineCap = "round";
+        this.ctx.lineJoin = "round";
+
+        this.ctx.beginPath();
+        this.ctx.moveTo(points[0].x, points[0].y);
+
+        for (let i = 1; i < points.length; i++) {
+            this.ctx.lineTo(points[i].x, points[i].y);
+        }
+
+        this.ctx.stroke();
+        this.ctx.restore(); // to restore the canvas to its original state
     }
 }

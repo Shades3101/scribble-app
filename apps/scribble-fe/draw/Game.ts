@@ -1,4 +1,4 @@
-import { ToolInterface } from "./tools/Tools";
+import { ToolInterface } from "./tools/ToolInterface";
 import { getExistingShapes } from "./http";
 import { Shape } from "./shapes";
 import { Mouse } from "./mouse/Mouse";
@@ -48,7 +48,7 @@ export class Game {
         this.canvas.removeEventListener("mousemove", this.mouseMoveHandler)
     }
 
-    setTool(tool: "circle" | "rect" | "pencil" | "pointer") {
+    setTool(tool: "circle" | "rect" | "pencil" | "pointer" | "eraser") {
         if (tool in toolRegistry) {
             this.currentTool = toolRegistry[tool as keyof typeof toolRegistry];
         }
@@ -105,54 +105,55 @@ export class Game {
         this.mouse.update(e, this.canvas);
         this.mouse.up();
 
-        const shape = this.currentTool.create(
+        const result = this.currentTool.handleMouseUp(
+            this.existingShapes,
             this.mouse.startX,
             this.mouse.startY,
             this.mouse.worldX,
             this.mouse.worldY
-        )
+        );
 
-        if (!shape) {
-            return
+        this.existingShapes = result.shapes;
+
+        if (result.newShape) {
+            this.existingShapes.push(result.newShape);
         }
 
-        this.existingShapes.push(shape);
         this.clearCanvas();
 
-        this.socketQueue.send({
-            type: "chat",
-            roomId: this.roomId,
-            message: shape.toJSON()
-        });
+        if (result.newShape) {
+            this.socketQueue.send({
+                type: "chat",
+                roomId: this.roomId,
+                message: result.newShape.toJSON()
+            });
+        }
     }
 
     mouseMoveHandler = (e: MouseEvent) => {
 
         this.mouse.update(e, this.canvas);
 
-        if (this.currentTool.type === "pointer" && this.mouse.isClicked) {
-            this.camera.x += e.movementX;
-            this.camera.y += e.movementY;
-            this.clearCanvas();
-            return;
-        }
-
-
-        if(!this.mouse.isClicked) {
-            return
-        }
-        this.clearCanvas();
-
-        this.currentTool.preview(
-            this.renderer,
-            this.mouse.startX,
-            this.mouse.startY,
-            this.mouse.worldX,
-            this.mouse.worldY
+        const needsRedraw = this.currentTool.handleMouseMove(
+            this.camera,
+            this.mouse.isClicked,
+            e.movementX,
+            e.movementY
         );
+
+        if (needsRedraw) {
+            this.clearCanvas();
+            this.currentTool.preview(
+                this.renderer,
+                this.mouse.startX,
+                this.mouse.startY,
+                this.mouse.worldX,
+                this.mouse.worldY
+            );
+        }
     }
 
-
+    // create a new file when adding touch handlers: File Name: InputHandler.ts
     initMouseHandlers() {
         this.canvas.addEventListener("mousedown", this.mouseDownHandler)
 

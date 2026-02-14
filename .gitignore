@@ -39,4 +39,5 @@ yarn-error.log*
 *.pem
 .vscode
 PRODUCTION_DEPLOYMENT.md
+CHANGELOG.md
 

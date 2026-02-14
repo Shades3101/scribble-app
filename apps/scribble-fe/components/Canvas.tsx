@@ -12,7 +12,7 @@ import { useTheme } from "next-themes";
 import { UserAvatar } from "./UserAvatar";
 import { Button } from "@/components/ui/button";
 
-export type Tool = "circle" | "pencil" | "rect" | "pointer";
+export type Tool = "circle" | "pencil" | "rect" | "pointer" | "eraser";
 
 export function Canvas({
     roomId,
@@ -66,10 +66,6 @@ export function Canvas({
 
     return (
         <div className="h-screen w-full overflow-hidden bg-[#fafafa] dark:bg-zinc-950 relative selection:bg-blue-100 dark:selection:bg-blue-900 transition-colors duration-300">
-            {/* Decorative Grid Background */}
-            <div className="fixed inset-0 z-0 opacity-[0.03] dark:opacity-[0.05] pointer-events-none"
-                style={{ backgroundImage: 'radial-gradient(currentColor 1px, transparent 1px)', backgroundSize: '24px 24px' }} />
-
             <canvas
                 ref={canvasRef}
                 width={typeof window !== 'undefined' ? window.innerWidth : 1000}
@@ -161,9 +157,9 @@ function Toolbar({ selectedTool, setSelectedTool }: {
                 <div className="h-[2px] bg-[#2c2c2c]/10 dark:bg-zinc-100/20 mx-2" />
 
                 <IconButton
-                    activated={false}
+                    activated={selectedTool === "eraser"}
                     icon={<Eraser className="w-5 h-5" />}
-                    onClick={() => { }}
+                    onClick={() => setSelectedTool("eraser")}
                 />
             </motion.div>
         </div>

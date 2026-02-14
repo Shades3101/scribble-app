@@ -14,7 +14,9 @@ import {
     Minus,
     Triangle,
     Video,
-    MessageSquare
+    MessageSquare,
+    Eraser,
+    MousePointer2
 } from "lucide-react";
 import { Navbar } from "@/components/Navbar";
 import { Footer } from "@/components/Footer";
@@ -24,17 +26,32 @@ export default function FeaturesPage() {
         {
             icon: Users,
             title: "Real-time Collaboration",
-            desc: "Work with your team in real-time. See shapes appear instantly as others draw."
+            desc: "Work with your team in real-time. See shapes appear instantly as others draw and move."
+        },
+        {
+            icon: MousePointer2,
+            title: "Smart Selection",
+            desc: "Select, move, and organize your ideas with precision using our intuitive selection tool."
+        },
+        {
+            icon: Pencil,
+            title: "Freehand Drawing",
+            desc: "Express yourself naturally with a responsive pencil tool designed for sketches and scribbles."
+        },
+        {
+            icon: Eraser,
+            title: "Precision Erasing",
+            desc: "Clean up your work instantly with a dedicated eraser tool for fine-tuning your sketches."
+        },
+        {
+            icon: Maximize,
+            title: "Infinite Canvas",
+            desc: "Never run out of space. Pan and zoom across a limitless workspace that grows with your vision."
         },
         {
             icon: Moon,
             title: "Dark Mode",
             desc: "Easy on the eyes. Switch seamlessly between light and dark themes to match your workflow."
-        },
-        {
-            icon: Pencil,
-            title: "Essential Tools",
-            desc: "Everything you need to get started: Standard geometric shapes and freehand pencil drawing."
         },
         {
             icon: Save,
@@ -44,11 +61,6 @@ export default function FeaturesPage() {
     ];
 
     const upcomingFeatures = [
-        {
-            icon: Maximize,
-            title: "Infinite Canvas",
-            desc: "Never run out of space. A canvas that grows with your ideas, no matter how big they get."
-        },
         {
             icon: Palette,
             title: "Hand-drawn Aesthetic",
@@ -120,15 +132,15 @@ export default function FeaturesPage() {
                             <h2 className="text-4xl font-black uppercase italic tracking-tight">Available Now</h2>
                         </div>
 
-                        <div className="grid md:grid-cols-2 lg:grid-cols-2 gap-8">
+                        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
                             {currentFeatures.map((f, i) => (
                                 <motion.div
                                     key={i}
-                                    initial={{ opacity: 0, scale: 0.95 }}
-                                    whileInView={{ opacity: 1, scale: 1 }}
+                                    initial={{ opacity: 0, y: 20 }}
+                                    whileInView={{ opacity: 1, y: 0 }}
                                     viewport={{ once: true }}
                                     transition={{ delay: i * 0.1 }}
-                                    className="bg-white dark:bg-zinc-900 p-8 border-4 border-[#2c2c2c] dark:border-zinc-100 shadow-[8px_8px_0px_0px_rgba(0,0,0,1)] dark:shadow-[8px_8px_0px_0px_rgba(255,255,255,0.2)] hover:shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] dark:hover:shadow-[4px_4px_0px_0px_rgba(255,255,255,0.2)] hover:translate-x-[4px] hover:translate-y-[4px] transition-all duration-200"
+                                    className="bg-white dark:bg-zinc-900 p-8 border-4 border-[#2c2c2c] dark:border-zinc-100 rounded-xl hover:bg-[#f0f0f0] dark:hover:bg-zinc-800 transition-all duration-200"
                                 >
                                     <f.icon className="w-12 h-12 mb-6 text-black dark:text-white" />
                                     <h3 className="text-2xl font-bold uppercase mb-3">{f.title}</h3>

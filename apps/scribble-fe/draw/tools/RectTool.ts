@@ -1,6 +1,7 @@
 import { Renderer } from "../renderer/Renderer";
-import { Rect } from "../shapes";
-import { ToolInterface, ToolType } from "./Tools";
+import { Camera } from "../camera/Camera";
+import { Rect, Shape } from "../shapes";
+import { ToolInterface, ToolType } from "./ToolInterface";
 
 export class RectTool implements ToolInterface {
     type: ToolType = "rect";
@@ -29,5 +30,19 @@ export class RectTool implements ToolInterface {
         )
     }
 
+    handleMouseUp(existingShapes: Shape[], startX: number, startY: number, x: number, y: number) {
+        const newShape = this.create(startX, startY, x, y);
+        return {
+            shapes: existingShapes,
+            newShape
+        };
+    }
+
+    handleMouseMove(camera: Camera, isClicked: boolean, movementX: number, movementY: number): boolean {
+        if (!isClicked) {
+            return false;
+        }
+        return true;
+    }
 
 }
