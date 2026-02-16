@@ -1,135 +1,114 @@
-# Turborepo starter
+# 🎨 Scribble - Real-Time Collaborative Canvas
 
-This Turborepo starter is maintained by the Turborepo core team.
+[![TypeScript](https://img.shields.io/badge/TypeScript-007ACC?style=for-the-badge&logo=typescript&logoColor=white)](https://www.typescriptlang.org/)
+[![Next.js](https://img.shields.io/badge/Next.js-000000?style=for-the-badge&logo=nextdotjs&logoColor=white)](https://nextjs.org/)
+[![Turborepo](https://img.shields.io/badge/Turborepo-EF4444?style=for-the-badge&logo=turborepo&logoColor=white)](https://turbo.build/)
+[![Prisma](https://img.shields.io/badge/Prisma-2D3748?style=for-the-badge&logo=prisma&logoColor=white)](https://www.prisma.io/)
+[![Tailwind CSS](https://img.shields.io/badge/Tailwind_CSS-38B2AC?style=for-the-badge&logo=tailwind-css&logoColor=white)](https://tailwindcss.com/)
+[![WebSocket](https://img.shields.io/badge/WebSocket-010101?style=for-the-badge&logo=socket.io&logoColor=white)](https://developer.mozilla.org/en-US/docs/Web/API/WebSockets_API)
 
-## Using this example
+**Scribble** is a high-performance, real-time collaborative drawing platform inspired by Excalidraw. Built with a modern monorepo architecture, it allows multiple users to draw, brainstorm, and collaborate on a shared canvas with lightning-fast synchronization.
 
-Run the following command:
+---
 
-```sh
-npx create-turbo@latest
+## ✨ Key Features
+
+-   🚀 **Real-Time Collaboration**: Draw together with your team in real-time using low-latency WebSockets.
+-   🤝 **Room-Based Brainstorming**: Create unique rooms via slugs and invite collaborators effortlessly.
+-   🎨 **Infinite Canvas**: A smooth, responsive drawing experience with support for various shapes, freehand drawing, and erasers.
+-   🏗️ **Scalable Monorepo**: Powered by Turborepo for efficient builds and shared code across apps and packages.
+-   🔐 **Secure Auth**: Full authentication system with JWT and Google integration.
+-   💾 **Persistent State**: Your drawings are saved automatically to a PostgreSQL database.
+
+---
+
+## 🛠️ Tech Stack
+
+### Frontend
+- **Framework**: [Next.js 14](https://nextjs.org/) (App Router)
+- **Styling**: [Tailwind CSS](https://tailwindcss.com/)
+- **State Management**: React Hooks & Context API
+- **Icons**: [Lucide React](https://lucide.dev/)
+
+### Backend
+- **HTTP Server**: [Node.js](https://nodejs.org/) with [Express](https://expressjs.com/)
+- **Real-Time**: [WebSockets](https://github.com/websockets/ws)
+- **Database**: [PostgreSQL](https://www.postgresql.org/) with [Prisma ORM](https://www.prisma.io/)
+- **Validation**: [Zod](https://zod.dev/)
+
+### Shared Infrastructure
+- **Build System**: [Turborepo](https://turbo.build/)
+- **Language**: [TypeScript](https://www.typescriptlang.org/)
+- **Package Manager**: [pnpm](https://pnpm.io/)
+
+---
+
+## 🏗️ Project Architecture
+
+This project is structured as a monorepo using Turborepo:
+
+```text
+.
+├── apps
+│   ├── scribble-fe   # Next.js frontend application
+│   ├── ws-backend    # WebSocket server for real-time sync
+│   └── http-backend  # REST API for users, rooms, and auth
+├── packages
+│   ├── db            # Prisma schema and shared database client
+│   ├── common        # Shared Zod schemas, types, and constants
+│   ├── ui            # Shared React component library
+│   ├── config        # Shared ESLint and TypeScript configurations
 ```
 
-## What's inside?
+---
 
-This Turborepo includes the following packages/apps:
+## 🚀 Getting Started
 
-### Apps and Packages
+### Prerequisites
+- Node.js >= 18
+- pnpm >= 9.0.0
+- PostgreSQL instance
 
-- `docs`: a [Next.js](https://nextjs.org/) app
-- `web`: another [Next.js](https://nextjs.org/) app
-- `@repo/ui`: a stub React component library shared by both `web` and `docs` applications
-- `@repo/eslint-config`: `eslint` configurations (includes `eslint-config-next` and `eslint-config-prettier`)
-- `@repo/typescript-config`: `tsconfig.json`s used throughout the monorepo
+### Local Setup
 
-Each package/app is 100% [TypeScript](https://www.typescriptlang.org/).
+1. **Clone the repository**:
+   ```sh
+   git clone https://github.com/Shades3101/draw-app.git
+   cd scribble
+   ```
 
-### Utilities
+2. **Install dependencies**:
+   ```sh
+   pnpm install
+   ```
 
-This Turborepo has some additional tools already setup for you:
+3. **Environment Setup**:
+   Copy `.env.example` to `.env` in the respective apps and fill in your credentials (DATABASE_URL, JWT_SECRET, etc.).
 
-- [TypeScript](https://www.typescriptlang.org/) for static type checking
-- [ESLint](https://eslint.org/) for code linting
-- [Prettier](https://prettier.io) for code formatting
+4. **Initialize Database**:
+   ```sh
+   pnpm db:generate
+   pnpm db:push
+   ```
 
-### Build
+5. **Run Development Mode**:
+   ```sh
+   pnpm dev
+   ```
 
-To build all apps and packages, run the following command:
+Your apps should now be running:
+- Frontend: `http://localhost:3000`
+- API Backend: `http://localhost:8080`
+- WS Backend: `ws://localhost:8081`
 
-```
-cd my-turborepo
+---
 
-# With [global `turbo`](https://turborepo.com/docs/getting-started/installation#global-installation) installed (recommended)
-turbo build
+## 📜 License
 
-# Without [global `turbo`](https://turborepo.com/docs/getting-started/installation#global-installation), use your package manager
-npx turbo build
-yarn dlx turbo build
-pnpm exec turbo build
-```
+Distributed under the MIT License. See `LICENSE` for more information.
 
-You can build a specific package by using a [filter](https://turborepo.com/docs/crafting-your-repository/running-tasks#using-filters):
+---
 
-```
-# With [global `turbo`](https://turborepo.com/docs/getting-started/installation#global-installation) installed (recommended)
-turbo build --filter=docs
-
-# Without [global `turbo`](https://turborepo.com/docs/getting-started/installation#global-installation), use your package manager
-npx turbo build --filter=docs
-yarn exec turbo build --filter=docs
-pnpm exec turbo build --filter=docs
-```
-
-### Develop
-
-To develop all apps and packages, run the following command:
-
-```
-cd my-turborepo
-
-# With [global `turbo`](https://turborepo.com/docs/getting-started/installation#global-installation) installed (recommended)
-turbo dev
-
-# Without [global `turbo`](https://turborepo.com/docs/getting-started/installation#global-installation), use your package manager
-npx turbo dev
-yarn exec turbo dev
-pnpm exec turbo dev
-```
-
-You can develop a specific package by using a [filter](https://turborepo.com/docs/crafting-your-repository/running-tasks#using-filters):
-
-```
-# With [global `turbo`](https://turborepo.com/docs/getting-started/installation#global-installation) installed (recommended)
-turbo dev --filter=web
-
-# Without [global `turbo`](https://turborepo.com/docs/getting-started/installation#global-installation), use your package manager
-npx turbo dev --filter=web
-yarn exec turbo dev --filter=web
-pnpm exec turbo dev --filter=web
-```
-
-### Remote Caching
-
-> [!TIP]
-> Vercel Remote Cache is free for all plans. Get started today at [vercel.com](https://vercel.com/signup?/signup?utm_source=remote-cache-sdk&utm_campaign=free_remote_cache).
-
-Turborepo can use a technique known as [Remote Caching](https://turborepo.com/docs/core-concepts/remote-caching) to share cache artifacts across machines, enabling you to share build caches with your team and CI/CD pipelines.
-
-By default, Turborepo will cache locally. To enable Remote Caching you will need an account with Vercel. If you don't have an account you can [create one](https://vercel.com/signup?utm_source=turborepo-examples), then enter the following commands:
-
-```
-cd my-turborepo
-
-# With [global `turbo`](https://turborepo.com/docs/getting-started/installation#global-installation) installed (recommended)
-turbo login
-
-# Without [global `turbo`](https://turborepo.com/docs/getting-started/installation#global-installation), use your package manager
-npx turbo login
-yarn exec turbo login
-pnpm exec turbo login
-```
-
-This will authenticate the Turborepo CLI with your [Vercel account](https://vercel.com/docs/concepts/personal-accounts/overview).
-
-Next, you can link your Turborepo to your Remote Cache by running the following command from the root of your Turborepo:
-
-```
-# With [global `turbo`](https://turborepo.com/docs/getting-started/installation#global-installation) installed (recommended)
-turbo link
-
-# Without [global `turbo`](https://turborepo.com/docs/getting-started/installation#global-installation), use your package manager
-npx turbo link
-yarn exec turbo link
-pnpm exec turbo link
-```
-
-## Useful Links
-
-Learn more about the power of Turborepo:
-
-- [Tasks](https://turborepo.com/docs/crafting-your-repository/running-tasks)
-- [Caching](https://turborepo.com/docs/crafting-your-repository/caching)
-- [Remote Caching](https://turborepo.com/docs/core-concepts/remote-caching)
-- [Filtering](https://turborepo.com/docs/crafting-your-repository/running-tasks#using-filters)
-- [Configuration Options](https://turborepo.com/docs/reference/configuration)
-- [CLI Usage](https://turborepo.com/docs/reference/command-line-reference)
+<p align="center">
+  Built with ❤️ by <a href="https://github.com/Shades3101">Karan Narania</a>
+</p>
