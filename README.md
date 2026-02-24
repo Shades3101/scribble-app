@@ -1,4 +1,8 @@
-# 🎨 Scribble - Real-Time Collaborative Canvas
+<div align="center">
+
+# 🎨 Scribble
+### The Ultimate Real-Time Collaborative Canvas
+*Where ideas take shape, together.*
 
 [![TypeScript](https://img.shields.io/badge/TypeScript-007ACC?style=for-the-badge&logo=typescript&logoColor=white)](https://www.typescriptlang.org/)
 [![Next.js](https://img.shields.io/badge/Next.js-000000?style=for-the-badge&logo=nextdotjs&logoColor=white)](https://nextjs.org/)
@@ -7,108 +11,161 @@
 [![Tailwind CSS](https://img.shields.io/badge/Tailwind_CSS-38B2AC?style=for-the-badge&logo=tailwind-css&logoColor=white)](https://tailwindcss.com/)
 [![WebSocket](https://img.shields.io/badge/WebSocket-010101?style=for-the-badge&logo=socket.io&logoColor=white)](https://developer.mozilla.org/en-US/docs/Web/API/WebSockets_API)
 
-**Scribble** is a high-performance, real-time collaborative drawing platform inspired by Excalidraw. Built with a modern monorepo architecture, it allows multiple users to draw, brainstorm, and collaborate on a shared canvas with lightning-fast synchronization.
+[Explore the Docs](#-getting-started) · [Report Bug](https://github.com/Shades3101/scribble-app/issues) · [Request Feature](https://github.com/Shades3101/scribble-app/issues)
+
+</div>
+
+---
+
+## 📖 Table of Contents
+- [✨ Key Features](#-key-features)
+- [🖼️ Project Gallery](#️-project-gallery)
+- [🛠️ Tech Stack](#️-tech-stack)
+- [🏗️ Project Architecture](#️-project-architecture)
+- [🧭 Roadmap](#-roadmap)
+- [🚀 Getting Started](#-getting-started)
+- [🤝 Contributing](#-contributing)
 
 ---
 
 ## ✨ Key Features
 
--   🚀 **Real-Time Collaboration**: Draw together with your team in real-time using low-latency WebSockets.
--   🤝 **Room-Based Brainstorming**: Create unique rooms via slugs and invite collaborators effortlessly.
--   🎨 **Infinite Canvas**: A smooth, responsive drawing experience with support for various shapes, freehand drawing, and erasers.
--   🏗️ **Scalable Monorepo**: Powered by Turborepo for efficient builds and shared code across apps and packages.
--   🔐 **Secure Auth**: Full authentication system with JWT and Google integration.
--   💾 **Persistent State**: Your drawings are saved automatically to a PostgreSQL database.
+-   🚀 **Real-Time Collaboration**: Multi-user drawing with sub-50ms synchronization via custom WebSockets.
+-   🤝 **Smart Rooms**: Unique room slugs with persistent history and state management.
+-   🎨 **Infinite Expression**: Hand-drawn style aesthetics with support for shapes, arrows, and freehand.
+-   🏗️ **Monorepo Power**: Blazing fast builds and type-safety across the entire stack using Turborepo.
+-   🔐 **Enterprise-Grade Auth**: Secure session management using JWT and Google OAuth.
+-   💾 **Cloud Sync**: PostgreSQL-backed drawing persistence—pick up exactly where you left off.
+
+---
+
+## 🖼️ Project Gallery
+
+<div align="center">
+  <!-- User will add screenshots here -->
+  <kbd>
+    <img src="https://via.placeholder.com/800x450.png?text=Add+your+main+canvas+screenshot+here" width="800" alt="Scribble Canvas Interface">
+  </kbd>
+  <p><i>The main collaborative drawing interface in action.</i></p>
+</div>
 
 ---
 
 ## 🛠️ Tech Stack
 
-### Frontend
-- **Framework**: [Next.js 14](https://nextjs.org/) (App Router)
-- **Styling**: [Tailwind CSS](https://tailwindcss.com/)
-- **State Management**: React Hooks & Context API
+<details>
+<summary><b>Click to see the full technical breakdown</b></summary>
+
+### 💻 Frontend
+- **Framework**: [Next.js 14](https://nextjs.org/) (App Router, Server Components)
+- **Styling**: [Tailwind CSS](https://tailwindcss.com/) + [Radix UI](https://www.radix-ui.com/)
+- **State**: React Context API + Custom Hooks
 - **Icons**: [Lucide React](https://lucide.dev/)
 
-### Backend
-- **HTTP Server**: [Node.js](https://nodejs.org/) with [Express](https://expressjs.com/)
-- **Real-Time**: [WebSockets](https://github.com/websockets/ws)
-- **Database**: [PostgreSQL](https://www.postgresql.org/) with [Prisma ORM](https://www.prisma.io/)
+### ⚙️ Backend
+- **REST API**: [Node.js](https://nodejs.org/) & [Express](https://expressjs.com/)
+- **Real-Time Engine**: Custom [WebSocket](https://github.com/websockets/ws) Server
+- **Database**: [PostgreSQL](https://www.postgresql.org/)
+- **ORM**: [Prisma](https://www.prisma.io/)
 - **Validation**: [Zod](https://zod.dev/)
 
-### Shared Infrastructure
-- **Build System**: [Turborepo](https://turbo.build/)
-- **Language**: [TypeScript](https://www.typescriptlang.org/)
+### 🛠️ DevOps & Tooling
+- **Monorepo**: [Turborepo](https://turbo.build/)
+- **Language**: [TypeScript](https://www.typescriptlang.org/) (Strict mode)
 - **Package Manager**: [pnpm](https://pnpm.io/)
+</details>
 
 ---
 
 ## 🏗️ Project Architecture
 
-This project is structured as a monorepo using Turborepo:
-
-```text
-.
-├── apps
-│   ├── scribble-fe   # Next.js frontend application
-│   ├── ws-backend    # WebSocket server for real-time sync
-│   └── http-backend  # REST API for users, rooms, and auth
-├── packages
-│   ├── db            # Prisma schema and shared database client
-│   ├── common        # Shared Zod schemas, types, and constants
-│   ├── ui            # Shared React component library
-│   ├── config        # Shared ESLint and TypeScript configurations
+```mermaid
+graph TD
+    A[Scribble-FE] -->|REST| B[HTTP-Backend]
+    A -->|WS| C[WS-Backend]
+    B -->|Prisma| D[(PostgreSQL)]
+    C -->|Prisma| D
+    B -.->|Share Types| E{Common Package}
+    C -.->|Share Types| E
+    A -.->|Share UI| F{UI Package}
 ```
+
+This project uses a specialized monorepo structure to ensure high cohesion and low coupling:
+-   `apps/scribble-fe`: The Next.js client.
+-   `apps/ws-backend`: Lightweight, high-speed WebSocket broadcaster.
+-   `apps/http-backend`: Robust API for user management and room logic.
+-   `packages/db`: A single source of truth for your database schema.
+-   `packages/common`: Shared Zod validators and TypeScript contracts.
+
+---
+
+## 🧭 Roadmap
+
+We are constantly evolving! Here’s what we’re working on next:
+
+- [x] **Core Real-Time Engine**: Basic shape sync & room management.
+- [x] **Google Auth Integration**: Secure social login flow.
+- [ ] **Layered Canvas Rendering**: Performance optimization for 1000+ shapes.
+- [ ] **Exponential Backoff Reconnection**: Improved WS stability on flaky networks.
+- [ ] **Asymmetric Key Auth (RS256)**: Enhanced security for service-to-service auth.
+- [ ] **Collaborator Presence**: Visual indicators (cursors) of other active users.
 
 ---
 
 ## 🚀 Getting Started
 
-### Prerequisites
-- Node.js >= 18
-- pnpm >= 9.0.0
-- PostgreSQL instance
+### 📋 Prerequisites
+- **Node.js**: v18.0.0 or higher
+- **pnpm**: v9.0.0 or higher
+- **PostgreSQL**: A running instance (local or hosted)
 
-### Local Setup
+### 🛠️ Local Installation
 
-1. **Clone the repository**:
-   ```sh
-   git clone https://github.com/Shades3101/draw-app.git
+1. **Clone & Enter**:
+   ```bash
+   git clone https://github.com/Shades3101/scribble-app.git
    cd scribble
    ```
 
-2. **Install dependencies**:
-   ```sh
+2. **Install Deep Relations**:
+   ```bash
    pnpm install
    ```
 
-3. **Environment Setup**:
-   Copy `.env.example` to `.env` in the respective apps and fill in your credentials (DATABASE_URL, JWT_SECRET, etc.).
+3. **Configure Environment**:
+   *Create `.env` files in `apps/scribble-fe`, `http-backend`, and `ws-backend`.*
+   ```env
+   DATABASE_URL="postgresql://user:pass@localhost:5432/scribble"
+   JWT_SECRET="your-super-secret"
+   ```
 
-4. **Initialize Database**:
-   ```sh
+4. **Prepare the Vault**:
+   ```bash
    pnpm db:generate
    pnpm db:push
    ```
 
-5. **Run Development Mode**:
-   ```sh
+5. **Engage Engines**:
+   ```bash
    pnpm dev
    ```
 
-Your apps should now be running:
-- Frontend: `http://localhost:3000`
-- API Backend: `http://localhost:8080`
-- WS Backend: `ws://localhost:8081`
+---
+
+## 🤝 Contributing
+
+Contributions are what make the open-source community such an amazing place to learn, inspire, and create. Any contributions you make are **greatly appreciated**.
+
+1. Fork the Project
+2. Create your Feature Branch (`git checkout -b feature/AmazingFeature`)
+3. Commit your Changes (`git commit -m 'Add some AmazingFeature'`)
+4. Push to the Branch (`git checkout -b feature/AmazingFeature`)
+5. Open a Pull Request
 
 ---
 
-## 📜 License
+<div align="center">
 
-Distributed under the MIT License. See `LICENSE` for more information.
+[Back to top](#-scribble)
 
----
-
-<p align="center">
-  Built with ❤️ by <a href="https://github.com/Shades3101">Karan Narania</a>
-</p>
+</div>
