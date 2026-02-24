@@ -3,6 +3,7 @@ import { Rect } from "./Rect";
 import { Circle } from "./Circle";
 import { ShapeDTO } from "./ShapesDTO";
 import { Pencil } from "./Pencil";
+import { Triangle } from "./Triangle";
 
 export class ShapeFactory {
     static fromDTO(dto: ShapeDTO): Shape {
@@ -15,6 +16,9 @@ export class ShapeFactory {
 
             case "Pencil":
                 return new Pencil(dto.points);
+
+            case "Triangle":
+                return new Triangle(dto.x1, dto.y1, dto.x2, dto.y2, dto.x3, dto.y3);
 
             default:
                 throw new Error("Unknown ShapeDTO");

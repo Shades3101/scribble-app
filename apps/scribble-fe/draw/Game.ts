@@ -48,7 +48,7 @@ export class Game {
         this.canvas.removeEventListener("mousemove", this.mouseMoveHandler)
     }
 
-    setTool(tool: "circle" | "rect" | "pencil" | "pointer" | "eraser") {
+    setTool(tool: "circle" | "rect" | "pencil" | "pointer" | "eraser" | "triangle") {
         if (tool in toolRegistry) {
             this.currentTool = toolRegistry[tool as keyof typeof toolRegistry];
         }

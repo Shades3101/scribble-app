@@ -3,11 +3,13 @@ import { PencilTool } from "./PencilTool";
 import { RectTool } from "./RectTool";
 import { PointerTool } from "./PointerTool";
 import { EraserTool } from "./EraserTool";
+import { TriangleTool } from "./TriangleTool";
 
 export const toolRegistry = {
     pointer: new PointerTool(),
     rect: new RectTool(),
     circle: new CircleTool(),
     pencil: new PencilTool(),
-    eraser: new EraserTool()
+    eraser: new EraserTool(),
+    triangle: new TriangleTool()
 }

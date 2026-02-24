@@ -5,7 +5,7 @@ import { Shape } from "../shapes";
 
 //heart of my system :)
 
-export type ToolType = "circle" | "rect" | "pencil" | "pointer" | "eraser";
+export type ToolType = "circle" | "rect" | "pencil" | "pointer" | "eraser" | "triangle";
 
 export interface ToolInterface {
     type: ToolType;

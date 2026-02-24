@@ -88,4 +88,14 @@ export class Renderer {
         this.ctx.stroke();
         this.ctx.restore(); // to restore the canvas to its original state
     }
+
+    previewTriangle(x1: number, y1: number, x2: number, y2: number, x3: number, y3: number) {
+        this.ctx.strokeStyle = this.strokeColor;
+        this.ctx.beginPath();
+        this.ctx.moveTo(x1, y1);
+        this.ctx.lineTo(x2, y2);
+        this.ctx.lineTo(x3, y3);
+        this.ctx.closePath();
+        this.ctx.stroke();
+    }
 }

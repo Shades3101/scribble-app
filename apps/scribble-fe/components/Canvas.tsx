@@ -2,7 +2,7 @@
 
 import { useEffect, useRef, useState } from "react";
 import { IconButton } from "./IconButton";
-import { Circle, Pencil, RectangleHorizontalIcon, MousePointer2, Type, Eraser, Download, ArrowLeft } from "lucide-react";
+import { Circle, Pencil, RectangleHorizontalIcon, MousePointer2, Type, Eraser, Download, ArrowLeft, Triangle } from "lucide-react";
 import { ShareButton } from "./ShareButton";
 import { Game } from "@/draw/Game";
 import Link from "next/link";
@@ -12,7 +12,7 @@ import { useTheme } from "next-themes";
 import { UserAvatar } from "./UserAvatar";
 import { Button } from "@/components/ui/button";
 
-export type Tool = "circle" | "pencil" | "rect" | "pointer" | "eraser";
+export type Tool = "circle" | "pencil" | "rect" | "pointer" | "eraser" | "triangle";
 
 export function Canvas({
     roomId,
@@ -149,9 +149,9 @@ function Toolbar({ selectedTool, setSelectedTool }: {
                 />
 
                 <IconButton
-                    activated={false}
-                    icon={<Type className="w-5 h-5" />}
-                    onClick={() => { }}
+                    activated={selectedTool === "triangle"}
+                    icon={<Triangle className="w-5 h-5" />}
+                    onClick={() => setSelectedTool("triangle")}
                 />
 
                 <div className="h-[2px] bg-[#2c2c2c]/10 dark:bg-zinc-100/20 mx-2" />
