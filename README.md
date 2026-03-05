@@ -42,11 +42,29 @@
 ## 🖼️ Project Gallery
 
 <div align="center">
-  <!-- User will add screenshots here -->
+  
+  ### 🚀 Landing Page
   <kbd>
-    <img src="https://via.placeholder.com/800x450.png?text=Add+your+main+canvas+screenshot+here" width="800" alt="Scribble Canvas Interface">
+    <img src="apps/scribble-fe/public/Landing Page.png" width="800" alt="Scribble Landing Page">
   </kbd>
-  <p><i>The main collaborative drawing interface in action.</i></p>
+  
+  <br/>
+  <br/>
+
+  ### 📊 User Dashboard
+  <kbd>
+    <img src="apps/scribble-fe/public/Dashboard.png" width="800" alt="Scribble Dashboard">
+  </kbd>
+
+  <br/>
+  <br/>
+
+  ### 🎨 Collaborative Canvas
+  <kbd>
+    <img src="apps/scribble-fe/public/Canvas Page.png" width="800" alt="Scribble Canvas Interface">
+  </kbd>
+
+  <p><i>From first click to final brushstroke—real-time collaboration at its finest.</i></p>
 </div>
 
 ---
